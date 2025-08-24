@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Linkedin, Mail, Github } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { preloadImages, getOptimizedImageUrl } from '../utils/imageLoader';
 
 // Define team member type
 interface TeamMember {
@@ -418,39 +417,24 @@ const categorizeTeamMembers = (members: TeamMember[]): Record<string, TeamMember
   return categories;
 };
 
-// Team Member Card Component with enhanced image handling
+// Team Member Card Component
 const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => {
-  const [imageState, setImageState] = useState<'loading' | 'loaded' | 'error'>('loading');
-  const [currentImage, setCurrentImage] = useState(getOptimizedImageUrl(member.image, 400, 400));
-
-  const handleImageError = () => {
-    if (imageState !== 'error') {
-      setCurrentImage('/placeholder-avatar.png');
-      setImageState('error');
-    }
-  };
-
-  const handleImageLoad = () => {
-    setImageState('loaded');
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = '/placeholder-avatar.png';
   };
 
   return (
     <div className="bg-white/5 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
       <div className="relative pt-[100%] bg-gray-800">
         <img 
-          src={currentImage}
+          src={member.image.startsWith('http') ? member.image : `/${member.image}`}
           alt={member.name}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-            imageState === 'loaded' ? 'opacity-100' : 'opacity-0'
-          }`}
-          onLoad={handleImageLoad}
+          className="absolute inset-0 w-full h-full object-cover"
           onError={handleImageError}
-          loading="lazy"
+          loading="eager"
           decoding="async"
         />
-        {imageState === 'loading' && (
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse"></div>
-        )}
       </div>
       <div className="p-4">
         <h3 className="text-xl font-semibold text-white">{member.name}</h3>
@@ -493,36 +477,11 @@ const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => {
 // Main Team Component
 const Team: React.FC = () => {
   const { t } = useTranslation();
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [categorizedMembers, setCategorizedMembers] = useState<Record<string, TeamMember[]>>({});
+  const [categorizedMembers] = useState<Record<string, TeamMember[]>>(
+    () => categorizeTeamMembers(teamMembers)
+  );
 
-  // Preload images when component mounts
-  useEffect(() => {
-    const loadImages = async () => {
-      const imagePaths = teamMembers.map(member => member.image);
-      await preloadImages(imagePaths);
-      setImagesLoaded(true);
-    };
 
-    loadImages();
-  }, []);
-
-  // Categorize team members when component mounts
-  useEffect(() => {
-    setCategorizedMembers(categorizeTeamMembers(teamMembers));
-  }, []);
-
-  // Render loading state
-  if (!imagesLoaded) {
-    return (
-      <section className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-center mb-12">Our Team</h1>
-        <div className="flex justify-center items-center min-h-[400px]">
-          <div className="animate-pulse text-gray-400">Loading team members...</div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="container mx-auto px-4 py-12">

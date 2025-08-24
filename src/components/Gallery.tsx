@@ -1,16 +1,6 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-// Utility function to preload images
-const preloadImage = (src: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => resolve(img);
-    img.onerror = (error) => reject(error);
-  });
-};
 
 const photos = [
     "/_MG_0416.JPG",
@@ -32,56 +22,14 @@ const photos = [
 const Gallery = () => {
     const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
 
     const prevPhoto = () => {
-        const prevIndex = currentIndex === 0 ? photos.length - 1 : currentIndex - 1;
-        setLoading(true);
-        setCurrentIndex(prevIndex);
+        setCurrentIndex(prev => (prev === 0 ? photos.length - 1 : prev - 1));
     };
 
     const nextPhoto = () => {
-        const nextIndex = currentIndex === photos.length - 1 ? 0 : currentIndex + 1;
-        setLoading(true);
-        setCurrentIndex(nextIndex);
+        setCurrentIndex(prev => (prev === photos.length - 1 ? 0 : prev + 1));
     };
-
-    // Preload images when component mounts and when currentIndex changes
-    useEffect(() => {
-        const loadImages = async () => {
-            try {
-                // Preload current, next, and previous images
-                const indicesToLoad = [
-                    currentIndex,
-                    (currentIndex + 1) % photos.length,
-                    (currentIndex - 1 + photos.length) % photos.length
-                ];
-
-                await Promise.all(
-                    indicesToLoad.map(async (index) => {
-                        if (!loadedImages[index]) {
-                            try {
-                                await preloadImage(photos[index]);
-                                setLoadedImages(prev => ({
-                                    ...prev,
-                                    [index]: true
-                                }));
-                            } catch (error) {
-                                console.error(`Failed to load image: ${photos[index]}`, error);
-                            }
-                        }
-                    })
-                );
-            } catch (error) {
-                console.error('Error preloading images:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadImages();
-    }, [currentIndex]);
 
     return (
         <section id="gallery" className="py-20 bg-black relative">
@@ -99,28 +47,18 @@ const Gallery = () => {
                 {/* Photo Display */}
                 <div className="relative">
                     <div className="w-full h-[480px] mx-auto rounded-xl overflow-hidden border border-[#a02638]/50 shadow-lg">
-                        {loading && !loadedImages[currentIndex] ? (
-                            <div className="w-full h-full flex items-center justify-center bg-gray-900">
-                                <Loader2 className="w-12 h-12 text-[#a02638] animate-spin" />
-                            </div>
-                        ) : (
-                            <img
-                                src={photos[currentIndex]}
-                                alt={t('gallery.alt', { number: currentIndex + 1 })}
-                                className={`w-full h-full object-contain transition-opacity duration-300 ${
-                                    loadedImages[currentIndex] ? 'opacity-100' : 'opacity-0'
-                                }`}
-                                onLoad={() => setLoading(false)}
-                                onError={(e) => {
-                                    console.error('Failed to load image:', photos[currentIndex]);
-                                    const target = e.target as HTMLImageElement;
-                                    target.src = '/placeholder-gallery.jpg';
-                                    setLoading(false);
-                                }}
-                                loading="lazy"
-                                decoding="async"
-                            />
-                        )}
+                        <img
+                            src={photos[currentIndex]}
+                            alt={t('gallery.alt', { number: currentIndex + 1 })}
+                            className="w-full h-full object-contain"
+                            onError={(e) => {
+                                console.error('Failed to load image:', photos[currentIndex]);
+                                const target = e.target as HTMLImageElement;
+                                target.src = '/placeholder-gallery.jpg';
+                            }}
+                            loading="eager"
+                            decoding="async"
+                        />
                     </div>
 
                     {/* Navigation Arrows */}
@@ -146,17 +84,13 @@ const Gallery = () => {
                     {photos.map((_, index) => (
                         <button
                             key={index}
-                            onClick={() => {
-                                setLoading(true);
-                                setCurrentIndex(index);
-                            }}
+                            onClick={() => setCurrentIndex(index)}
                             aria-label={t('gallery.goTo', { number: index + 1 })}
                             className={`w-3 h-3 rounded-full transition-all duration-200 ${
                                 currentIndex === index 
                                     ? "bg-[#a02638] scale-125" 
                                     : "bg-gray-600 hover:bg-gray-400 hover:scale-110"
                             }`}
-                            disabled={loading}
                         />
                     ))}
                 </div>
