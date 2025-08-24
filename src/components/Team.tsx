@@ -1,6 +1,31 @@
-import React, { useState } from 'react';
-import { Linkedin, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { getImagePath, handleImageError } from '../utils/imageUtils';
+
+// Function to preload images
+const preloadImage = (src: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = getImagePath(src);
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
+  });
+};
+
+// Define the team member type
+interface TeamMember {
+  name: string;
+  role: string;
+  department: string;
+  image: string;
+  social: {
+    linkedin: string;
+    email: string;
+    github?: string;
+    instagram?: string;
+  };
+}
 
 
 const teamCategories = {
@@ -30,8 +55,39 @@ const categorizeTeamMembers = (members) => {
 };
 
 const Team = () => {
-    const { t } = useTranslation();
-  const teamMembers = [
+  const { t } = useTranslation();
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all team member images when component mounts
+  useEffect(() => {
+    let isMounted = true;
+    
+    const preloadImages = async () => {
+      try {
+        const imagePromises = teamMembers.map(member => 
+          preloadImage(member.image).catch(err => {
+            console.warn(`Failed to load image: ${member.image}`, err);
+            return null;
+          })
+        );
+        await Promise.all(imagePromises);
+      } catch (error) {
+        console.error('Error preloading images:', error);
+      } finally {
+        if (isMounted) {
+          setImagesLoaded(true);
+        }
+      }
+    };
+
+    preloadImages();
+    
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const teamMembers: TeamMember[] = [
     {
       name: "Hüseyin Poyraz Kocamış",
       role: t("Team Captain"),
@@ -392,17 +448,20 @@ const Team = () => {
                         >
                           {/* Görsel */}
                           <div className="relative overflow-hidden">
-                            <img
-                                src={member.image}
-                                alt={member.name}
-                                loading="lazy"
-                                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                                onError={(e) => {
-                                    const target = e.target as HTMLImageElement;
-                                    target.onerror = null; // Prevent infinite loop
-                                    target.src = '/placeholder-avatar.png';
-                                }}
-                            />
+                            <div className="relative h-64 overflow-hidden">
+                              <img
+                                  src={getImagePath(member.image)}
+                                  alt={member.name}
+                                  loading="lazy"
+                                  className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 ${
+                                    imagesLoaded ? 'opacity-100' : 'opacity-0'
+                                  }`}
+                                  onError={handleImageError}
+                              />
+                              {!imagesLoaded && (
+                                <div className="absolute inset-0 bg-gray-800 animate-pulse"></div>
+                              )}
+                            </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                           </div>
 

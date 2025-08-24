@@ -1,0 +1,92 @@
+/**
+ * Utility functions for handling image paths in the application
+ */
+
+// Define the base URL type for better type safety
+type BaseUrl = string;
+
+// Get the base URL based on the current environment
+const getBaseUrl = (): BaseUrl => {
+  // For Vite projects
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    return (import.meta.env.BASE_URL as string) || '';
+  }
+  
+  // For Create React App
+  if (typeof process !== 'undefined' && process.env && process.env.PUBLIC_URL) {
+    return process.env.PUBLIC_URL;
+  }
+  
+  // Default to empty string for development
+  return '';
+};
+
+const BASE_URL: BaseUrl = getBaseUrl();
+
+// Cache for tracking loaded images
+const imageCache = new Set<string>();
+
+// Type guard for HTMLImageElement
+const isHTMLImageElement = (element: EventTarget | null): element is HTMLImageElement => {
+  return element !== null && (element as HTMLImageElement).tagName === 'IMG';
+};
+
+/**
+ * Gets the correct image path for both development and production
+ * @param imageName - The name of the image file (with or without leading slash)
+ * @returns The correct image path
+ */
+export const getImagePath = (imageName: string): string => {
+  // Return placeholder if no image name is provided
+  if (!imageName || typeof imageName !== 'string') {
+    return `${BASE_URL}/placeholder-avatar.png`;
+  }
+  
+  // Normalize the image path
+  const cleanName = imageName.startsWith('/') ? imageName.substring(1) : imageName;
+  const fullPath = `${BASE_URL}/${cleanName}`;
+  
+  // Add to cache and preload if not already cached
+  if (!imageCache.has(fullPath)) {
+    try {
+      imageCache.add(fullPath);
+      // Preload the image
+      const img = new Image();
+      img.src = fullPath;
+      
+      // Set up error handling for the preload
+      img.onerror = () => {
+        console.warn(`Failed to preload image: ${fullPath}`);
+      };
+    } catch (error) {
+      console.error('Error preloading image:', error);
+    }
+  }
+  
+  return fullPath;
+};
+
+/**
+ * Handles image loading errors by setting a fallback image
+ * @param e - The error event from the image element
+ */
+export const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>): void => {
+  if (!isHTMLImageElement(e.target)) {
+    console.warn('Error target is not an image element');
+    return;
+  }
+  
+  const target = e.target as HTMLImageElement;
+  const placeholderPath = `${BASE_URL}/placeholder-avatar.png`;
+  
+  // Only try to recover if we haven't already tried the fallback
+  if (!target.src.endsWith(placeholderPath)) {
+    try {
+      target.onerror = null; // Prevent infinite loop
+      target.src = placeholderPath;
+      target.classList.add('opacity-50');
+    } catch (error) {
+      console.error('Error setting fallback image:', error);
+    }
+  }
+};
