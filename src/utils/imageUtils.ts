@@ -13,8 +13,15 @@ export const getImagePath = (imageName: string): string => {
     return imageName;
   }
   
-  // Ensure consistent path format
+  // Remove leading slash if present
   const cleanName = imageName.startsWith('/') ? imageName.substring(1) : imageName;
+  
+  // For production (Netlify), use the path directly from public folder
+  if (process.env.NODE_ENV === 'production') {
+    return `/${cleanName}`;
+  }
+  
+  // For development, use the path relative to public folder
   return `/${cleanName}`;
 };
 

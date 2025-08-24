@@ -13,3 +13,30 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
+
+# Static assets handling
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, must-revalidate"
+    Access-Control-Allow-Origin = "*"
+
+# Images handling
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, must-revalidate"
+    Content-Type = "image/png"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, must-revalidate"
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "/*.jpeg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, must-revalidate"
+    Content-Type = "image/jpeg"
