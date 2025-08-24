@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -10,19 +10,19 @@ const Magazines = () => {
         {
             title: t('magazines.may.title'),
             description: t('magazines.may.description'),
-            cover: "/photos/insan.png",
+            cover: "/insan.png",
             pdf: "/mayrecap.pdf",
         },
         {
             title: t('magazines.june.title'),
             description: t('magazines.june.description'),
-            cover: "/photos/insan.png",
+            cover: "/insan.png",
             pdf: "/junerecap.pdf",
         },
         {
             title: t('magazines.july.title'),
             description: t('magazines.july.description'),
-            cover: "/photos/insan.png",
+            cover: "/insan.png",
             pdf: "/julyrecap.pdf",
         },
     ];

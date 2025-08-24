@@ -50,7 +50,7 @@ const Header = () => {
                             }}
                         >
                             <img
-                                src="photos/amblemSTROKELIGHT.png"
+                                src="/amblemSTROKELIGHT.png"
                                 alt="Logo"
                                 className="w-full h-full object-contain"
                                 draggable={false}
@@ -60,7 +60,7 @@ const Header = () => {
                         {/* Yazı yerine yeni logo */}
                         <img
                             onClick={handleRefresh}
-                            src="photos/logotype2.png"
+                            src="/logotype2.png"
                             alt="Yeni Logo"
                             className={`ml-4 w-auto h-10 ${animateLogo ? 'animating-text' : ''}`}
                             style={{ position: 'relative', zIndex: 10 }}

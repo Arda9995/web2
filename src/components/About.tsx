@@ -89,7 +89,7 @@ const About = () => {
             <div className="relative">
               <div className="aspect-w-16 aspect-h-12 rounded-lg overflow-hidden">
                 <img
-                    src="racingaleri/_MG_5113.JPG"
+                    src="/_MG_5113.JPG"
                     alt={t('about.imageAlt', "IZTECH Racing team")}
                     className="w-full h-96 object-cover rounded-lg"
                 />

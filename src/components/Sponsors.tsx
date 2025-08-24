@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heart, Handshake, Star, Award } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,40 +14,40 @@ const Sponsors = () => {
       tier: t('sponsors.tiers.gold.title', "Gold Sponsors"),
       description: t('sponsors.tiers.gold.description', "Major supporters of our racing endeavors"),
       sponsors: [
-        { name: "Altair", logo: "ALTIN/altair.png", url: "https://altair.com/" },
-        { name: "ANSYS", logo: "ALTIN/ANSYS_logo.png", url: "https://www.ansys.com/" },
-        { name: "Bias Mühendislik", logo: "ALTIN/biasmuhendislik_logo.png", url: "https://bias.com.tr/" },
-        { name: "Hexagon", logo: "ALTIN/hexagon_logo.png", url: "https://hexagon.com/" },
-        { name: "Numesys", logo: "ALTIN/numesys-logo-gri-min.png", url: "https://www.numesys.com.tr/" },
-        { name: "Tekyaz", logo: "ALTIN/TEKYAZ_LOGO_002.png", url: "https://www.tekyaz.com/" },
-        { name: "Prokom", logo: "ALTIN/Logo_Prokom_W.png", url: "https://prokomcomposite.com/" }
+        { name: "Altair", logo: "/altair.png", url: "https://altair.com/" },
+        { name: "ANSYS", logo: "/ANSYS_logo.png", url: "https://www.ansys.com/" },
+        { name: "Bias Mühendislik", logo: "/biasmuhendislik_logo.png", url: "https://bias.com.tr/" },
+        { name: "Hexagon", logo: "/hexagon_logo.png", url: "https://hexagon.com/" },
+        { name: "Numesys", logo: "/numesys-logo-gri-min.png", url: "https://www.numesys.com.tr/" },
+        { name: "Tekyaz", logo: "/TEKYAZ_LOGO_002.png", url: "https://www.tekyaz.com/" },
+        { name: "Prokom", logo: "/Logo_Prokom_W.png", url: "https://prokomcomposite.com/" }
       ]
     },
     {
       tier: t('sponsors.tiers.silver.title', "Silver Sponsors"),
       description: t('sponsors.tiers.silver.description', "Valued partners in our journey"),
       sponsors: [
-        { name: "Avioni Technologies", logo: "SILVER/5958e813d0893.png", url: "https://www.avionitech.com/tr/" },
-        { name: "IZELTAŞ", logo: "SILVER/images.png", url: "https://izeltas.com.tr/" },
-        { name: "Gamma Technologies", logo: "GT", url: "https://www.gtisoft.com/" }
+        { name: "Avioni Technologies", logo: "/5958e813d0893.png", url: "https://www.avionitech.com/tr/" },
+        { name: "IZELTAŞ", logo: "/images.png", url: "https://izeltas.com.tr/" },
+        { name: "Gamma Technologies", logo: "/GT", url: "https://www.gtisoft.com/" }
       ]
     },
     {
       tier: t('sponsors.tiers.bronze.title', "Bronze Sponsors"),
       description: t('sponsors.tiers.bronze.description', "Valued partners in our journey"),
       sponsors: [
-        { name: "İnci Akü", logo: "BRONZ/incilogo-dosya.png", url: "https://www.inciaku.com/tr/" },
-        { name: "Yakup Yılmaz", logo: "BRONZ/yakup.png", url: "https://www.yakupyilmazboru.com/" }
+        { name: "İnci Akü", logo: "/incilogo-dosya.png", url: "https://www.inciaku.com/tr/" },
+        { name: "Yakup Yılmaz", logo: "/yakup.png", url: "https://www.yakupyilmazboru.com/" }
       ]
     },
     {
       tier: t('sponsors.tiers.supporters.title', "Supporters"),
       description: t('sponsors.tiers.supporters.description', "Valued partners in our journey"),
       sponsors: [
-        { name: "Urla Solar", logo: "SUPPORTER/UrlaSolar_Tam_Logo.png", url: "https://urlasolar.com/" },
-        { name: "Bilişim Vadisi", logo: "SUPPORTER/BV_Logo_H.png", url: "https://bilisimvadisi.com.tr/" },
-        { name: "Teknopark İzmir", logo: "SUPPORTER/20190828083905.png", url: "https://teknoparkizmir.com.tr/" },
-        { name: "URİKAD", logo: "SUPPORTER/URİKADW.png", url: "#" }
+        { name: "Urla Solar", logo: "/UrlaSolar_Tam_Logo.png", url: "https://urlasolar.com/" },
+        { name: "Bilişim Vadisi", logo: "/BV_Logo_H.png", url: "https://bilisimvadisi.com.tr/" },
+        { name: "Teknopark İzmir", logo: "/20190828083905.png", url: "https://teknoparkizmir.com.tr/" },
+        { name: "URİKAD", logo: "/URİKADW.png", url: "#" }
       ]
     }
   ];

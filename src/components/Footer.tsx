@@ -46,7 +46,7 @@ const Footer = () => {
               <div className="lg:col-span-1">
                 <div className="flex items-center mb-6">
                   <img
-                      src="photos/logos.png"
+                      src="/logos.png"
                       alt={t('footer.logoAlt')}
                       className="w-12 h-12 mr-4 object-contain"
                   />

@@ -9,7 +9,7 @@ const Vehicles = () => {
       name: "Freakmobile",
       category: t('vehicles.categories.formulaStudent', "Formula Student"),
       year: "2024-2025",
-      image: "photos/freakmobile.jpg",
+      image: "/freakmobile.jpg",
       specs: {
         power: "2.5HP",
         weight: "250 Kg",
@@ -28,7 +28,7 @@ const Vehicles = () => {
       name: "Corsa",
       category: t('vehicles.categories.prototypeDevelopment', "Prototype Development"),
       year: "2025-2026",
-      image: "photos/doruk.jpg",
+      image: "/doruk.jpg",
       specs: {
         power: "6 HP",
         weight: "250kg",
@@ -47,7 +47,7 @@ const Vehicles = () => {
       name: "Doruk",
       category: t('vehicles.categories.mainCarDevelopment', "Formula Student Main Car Development"),
       year: "2025-2026",
-      image: "photos/doruk.jpg",
+      image: "/doruk.jpg",
       specs: {
         power: "80HP",
         weight: "220kg",

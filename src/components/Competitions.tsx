@@ -1,4 +1,3 @@
-import React from 'react';
 import { Trophy, Calendar, MapPin, Medal, Star, Clock } from 'lucide-react';
 
 const Competitions = () => {
