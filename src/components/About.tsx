@@ -1,6 +1,5 @@
-import React from 'react';
-import { Wrench, Glasses, Car, Clipboard, Trophy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Wrench, Glasses, Car, Clipboard, Trophy } from 'lucide-react';
 
 const About = () => {
   const { t } = useTranslation();
@@ -90,7 +89,7 @@ const About = () => {
             <div className="relative">
               <div className="aspect-w-16 aspect-h-12 rounded-lg overflow-hidden">
                 <img
-                    src="/racingaleri/_MG_5113.JPG"
+                    src="racingaleri/_MG_5113.JPG"
                     alt={t('about.imageAlt', "IZTECH Racing team")}
                     className="w-full h-96 object-cover rounded-lg"
                 />

@@ -1,6 +1,5 @@
-import React from 'react';
-import { Mail, MapPin, Instagram, Linkedin, Music2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Instagram, Linkedin, Mail, MapPin, Music2 } from 'lucide-react';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -47,7 +46,7 @@ const Footer = () => {
               <div className="lg:col-span-1">
                 <div className="flex items-center mb-6">
                   <img
-                      src="/photos/logos.png"
+                      src="photos/logos.png"
                       alt={t('footer.logoAlt')}
                       className="w-12 h-12 mr-4 object-contain"
                   />

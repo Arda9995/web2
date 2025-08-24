@@ -1,4 +1,3 @@
-import React from 'react';
 import { Zap, Gauge, Weight, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +9,7 @@ const Vehicles = () => {
       name: "Freakmobile",
       category: t('vehicles.categories.formulaStudent', "Formula Student"),
       year: "2024-2025",
-      image: "/photos/freakmobile.jpg",
+      image: "photos/freakmobile.jpg",
       specs: {
         power: "2.5HP",
         weight: "250 Kg",
@@ -29,7 +28,7 @@ const Vehicles = () => {
       name: "Corsa",
       category: t('vehicles.categories.prototypeDevelopment', "Prototype Development"),
       year: "2025-2026",
-      image: "/photos/doruk.jpg",
+      image: "photos/doruk.jpg",
       specs: {
         power: "6 HP",
         weight: "250kg",
@@ -48,7 +47,7 @@ const Vehicles = () => {
       name: "Doruk",
       category: t('vehicles.categories.mainCarDevelopment', "Formula Student Main Car Development"),
       year: "2025-2026",
-      image: "/photos/doruk.jpg",
+      image: "photos/doruk.jpg",
       specs: {
         power: "80HP",
         weight: "220kg",

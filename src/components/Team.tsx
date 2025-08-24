@@ -36,7 +36,7 @@ const Team = () => {
       name: "Hüseyin Poyraz Kocamış",
       role: t("Team Captain"),
       department: t("Civil Engineering"),
-      image: "/photos/POYRAZ.png",
+      image: "photos/POYRAZ.png",
       social: {
         linkedin: "https://www.linkedin.com/in/poyrazkocamis?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -46,7 +46,7 @@ const Team = () => {
       name: "Serkan Doğan Evin",
       role: t("Electronics & Software Team Leader"),
       department: t("Mechanical Engineering"),
-      image: "/photos/SERKAN.png",
+      image: "photos/SERKAN.png",
       social: {
         linkedin: "https://www.linkedin.com/in/serkan-do%C4%9Fan-evin-7569a61b8/",
         email: "@iztechracing.com",
@@ -57,7 +57,7 @@ const Team = () => {
       name: "Emre Canbaz",
       role: t("Vehicle Dynamics Team Leader"),
       department: t("Mechanical Engineering"),
-      image: "/photos/EMRE.png",
+      image: "photos/EMRE.png",
       social: {
         linkedin: "https://www.linkedin.com/in/emre-canbaz-30b087335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -68,7 +68,7 @@ const Team = () => {
       name: "Onur Şen",
       role: t("Powertrain Team Leader"),
       department: t("Mechanical Engineering"),
-      image: "/photos/ONUR.png",
+      image: "photos/ONUR.png",
       social: {
         linkedin: "https://www.linkedin.com/in/onur-%C5%9Fen-b87b50239?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -79,7 +79,7 @@ const Team = () => {
       name: "Efe Yıldırım",
       role: t("Aerodynamics Team Leader"),
       department: t("Mechanical Engineering"),
-      image: "/photos/EFEYİLDİRİR.png",
+      image: "photos/EFEYİLDİRİR.png",
       social: {
         linkedin: "https://www.linkedin.com/in/efeyldrm/",
         email: "@iztechracing.com",
@@ -90,7 +90,7 @@ const Team = () => {
       name: "Ödül Yarkın Baran",
       role: t("Organization Team Leader"),
       department: t("Photonics Department"),
-      image: "/photos/ÖdülYarkınBaran.png",
+      image: "photos/ÖdülYarkınBaran.png",
       social: {
         linkedin: "https://www.linkedin.com/in/odulyarkinbaran/",
         email: "@iztechracing.com",
@@ -101,7 +101,7 @@ const Team = () => {
       name: "Ahmet Duha Aydın",
       role: t("Chassis & Ergonomics Team Leader"),
       department: t("Mechanical Engineering"),
-      image: "/photos/DUHA.png",
+      image: "photos/DUHA.png",
       social: {
         linkedin: "https://www.linkedin.com/in/ahmet-duha-aydin-b81b98244",
         email: "@iztechracing.com",
@@ -112,7 +112,7 @@ const Team = () => {
       name: "Altay Alp",
       role: t("Electronics & Software Team Member"),
       department: t("Electronics & Communication Engineering"),
-      image: "/photos/ALTAYALP.png",
+      image: "photos/ALTAYALP.png",
       social: {
         linkedin: "https://www.linkedin.com/in/altay-alp-4225bb251?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -123,7 +123,7 @@ const Team = () => {
       name: "Arda Onuk",
       role: t("Electronics & Software Team Member"),
       department: t("Mathematics Department"),
-      image: "/photos/ARDAONUK.png",
+      image: "photos/ARDAONUK.png",
       social: {
         linkedin: "https://www.linkedin.com/in/arda-onuk-8247b5352/",
         email: "ardaonuk9995@gmail.com",
@@ -134,7 +134,7 @@ const Team = () => {
       name: "Berkant Süren",
       role: t("Chassis & Ergonomics Team Member"),
       department: t("Materials  Engineering"),
-      image: "/photos/BERKANT.png",
+      image: "photos/BERKANT.png",
       social: {
         linkedin: "https://www.linkedin.com/in/berkant-suren?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -145,7 +145,7 @@ const Team = () => {
       name: "Arda Keskin",
       role: t("Vehicle Dynamics Team Member"),
       department: t("Energy Systems  Engineering"),
-      image: "/photos/ARDAKESKİN.png",
+      image: "photos/ARDAKESKİN.png",
       social: {
         linkedin: "https://www.linkedin.com/in/arda-keskin-ba7b36230?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -156,7 +156,7 @@ const Team = () => {
       name: "Arda Akpolat",
       role: t("Vehicle Dynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/ARDAAKPOLAT.png",
+      image: "photos/ARDAAKPOLAT.png",
       social: {
         linkedin: "https://www.linkedin.com/in/arda-akpolat-444a51315?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -167,7 +167,7 @@ const Team = () => {
       name: "Senanur Günay",
       role: t("Electronics & Software Team Member"),
       department: t("Computer Engineering"),
-      image: "/photos/SENANUR.png",
+      image: "photos/SENANUR.png",
       social: {
         linkedin: "https://www.linkedin.com/in/senanur-g%C3%BCnay-94172431b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -178,7 +178,7 @@ const Team = () => {
       name: "Beren Alptekin",
       role: t("Organization Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/insan.png",
+      image: "photos/insan.png",
       social: {
         linkedin: "https://www.linkedin.com/in/beren-alptekin-71b6a5343?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -189,7 +189,7 @@ const Team = () => {
       name: "Tarık Alperen Öcal",
       role: t("Powertrain Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/TARIKALPERENOCAL.png",
+      image: "photos/TARIKALPERENOCAL.png",
       social: {
         linkedin: "https://www.linkedin.com/in/tar%C4%B1k-alperen-%C3%B6cal-32b8722b7?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -200,7 +200,7 @@ const Team = () => {
       name: "Yağız Yalçın",
       role: t("Powertrain Team Member"),
       department: t("Energy Systems Engineering"),
-      image: "/photos/YAĞIZYALÇIN.png",
+      image: "photos/YAĞIZYALÇIN.png",
       social: {
         linkedin: "https://www.linkedin.com/in/yagizyalcin00?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "alex@iztechracing.com",
@@ -211,7 +211,7 @@ const Team = () => {
       name: "Batuhan Elmaoğlu",
       role: t("Aerodynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/BATU.png",
+      image: "photos/BATU.png",
       social: {
         linkedin: "http://www.linkedin.com/in/batuhan-elmaoğlu-338185296",
         email: "@iztechracing.com",
@@ -222,7 +222,7 @@ const Team = () => {
       name: "Eren Uruş",
       role: t("Aerodynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/ERENURUŞ.png",
+      image: "photos/ERENURUŞ.png",
       social: {
         linkedin: "https://www.linkedin.com/in/erenurus",
         email: "@iztechracing.com",
@@ -233,7 +233,7 @@ const Team = () => {
       name: "Eren Karasakal",
       role: t("Chassis & Ergonomics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/ERENKARASAKAL.png",
+      image: "photos/ERENKARASAKAL.png",
       social: {
         linkedin: "https://www.linkedin.com/in/eren-karasakal-406769342?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -244,7 +244,7 @@ const Team = () => {
       name: "Tuğçe Özcan",
       role: t("Chassis & Ergonomics Team Member"),
       department: t("Materials Engineering"),
-      image: "/photos/TUĞÇE.png",
+      image: "photos/TUĞÇE.png",
       social: {
         linkedin: "https://www.linkedin.com/in/tu%C4%9F%C3%A7e-%C3%B6zcan-19738133b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -255,7 +255,7 @@ const Team = () => {
       name: "Nevzat Ediz Burçoğlu",
       role: t("Powertrain Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/EDİZ.png",
+      image: "photos/EDİZ.png",
       social: {
         linkedin: "https://www.linkedin.com/in/nevzatedizburcoglu?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -266,7 +266,7 @@ const Team = () => {
       name: "Kerem Katrancı",
       role: t("Powertrain Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/KEREM.png",
+      image: "photos/KEREM.png",
       social: {
         linkedin: "https://www.linkedin.com/in/kerem-katranc%C4%B1-33294a247?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -277,7 +277,7 @@ const Team = () => {
       name: "Emir Yaşa",
       role: t("Vehicle Dynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/EMİRYAŞA.png",
+      image: "photos/EMİRYAŞA.png",
       social: {
         linkedin: " https://www.linkedin.com/in/emir-ya%C5%9Fa-344460343?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app,",
         email: "@iztechracing.com",
@@ -288,7 +288,7 @@ const Team = () => {
       name: "Tuna Kurban",
       role: "Vehicle Dynamics Team Member",
       department: t("Mechanical Engineering"),
-      image: "/photos/TUNAKURBAN.png",
+      image: "photos/TUNAKURBAN.png",
       social: {
         linkedin: "https://www.linkedin.com/in/tuna-kurban-147606286?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -299,7 +299,7 @@ const Team = () => {
       name: "Hakan Şendaldal",
       role: t("Vehicle Dynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/HAKAN.png",
+      image: "photos/HAKAN.png",
       social: {
         linkedin: "https://www.linkedin.com/in/hakan-%C5%9Fendaldal-9b9688251?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -310,7 +310,7 @@ const Team = () => {
       name: "Khayal Musayev",
       role: t("Chassis & Ergonomics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/HAYAL.png",
+      image: "photos/HAYAL.png",
       social: {
         linkedin: "https://www.linkedin.com/in/khayal-musayev-98b769343?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
         email: "@iztechracing.com",
@@ -321,7 +321,7 @@ const Team = () => {
       name: "Sinan Efe Bayrak",
       role: t("Aerodynamics Team Member"),
       department: t("Mechanical Engineering"),
-      image: "/photos/SİNANEFE.png",
+      image: "photos/SİNANEFE.png",
       social: {
         linkedin: "https://www.linkedin.com/in/sinan-efe-bayrak-578419331?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
         email: "@iztechracing.com",
@@ -332,7 +332,7 @@ const Team = () => {
       name: "Kuzey",
       role: t("Business Development"),
       department: t("Industrial Design"),
-      image: "/photos/insan.png",
+      image: "photos/insan.png",
       social: {
         linkedin: "https://tr.linkedin.com/in/kuzey-demirer-76577a260",
         email: "@iztechracing.com",
