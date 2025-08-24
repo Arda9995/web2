@@ -1,14 +1,15 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "build"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20.11.1"
   NPM_VERSION = "10.2.4"
   NETLIFY_IMAGE_CDN_DOMAIN = "imgix.net"
+  NODE_OPTIONS = "--openssl-legacy-provider"
 
 # Redirect rules for SPA
-# Handle SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
