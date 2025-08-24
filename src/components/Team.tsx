@@ -39,15 +39,21 @@ const teamCategories = {
   "Business Development": "Business Development",
 };
 
-const categorizeTeamMembers = (members) => {
-  const categorized = {};
+interface CategorizedTeamMembers {
+  [category: string]: TeamMember[];
+}
 
-  members.forEach((member) => {
+const categorizeTeamMembers = (members: TeamMember[]): CategorizedTeamMembers => {
+  const categorized: CategorizedTeamMembers = {};
+
+  members.forEach((member: TeamMember) => {
     const categoryKey = Object.keys(teamCategories).find((key) =>
         member.role.includes(key)
     );
-    const category = teamCategories[categoryKey] || "Others";
-    if (!categorized[category]) categorized[category] = [];
+    const category = teamCategories[categoryKey as keyof typeof teamCategories] || "Others";
+    if (!categorized[category]) {
+      categorized[category] = [];
+    }
     categorized[category].push(member);
   });
 
@@ -63,19 +69,31 @@ const Team = () => {
     let isMounted = true;
     
     const preloadImages = async () => {
+      console.log('Starting to preload team member images...');
       try {
-        const imagePromises = teamMembers.map(member => 
-          preloadImage(member.image).catch(err => {
-            console.warn(`Failed to load image: ${member.image}`, err);
-            return null;
-          })
-        );
-        await Promise.all(imagePromises);
+        const imagePromises = teamMembers.map((member, index) => {
+          console.log(`Preloading image ${index + 1}/${teamMembers.length}: ${member.image}`);
+          return preloadImage(member.image)
+            .then(img => {
+              console.log(`Successfully preloaded: ${member.image}`);
+              return img;
+            })
+            .catch(err => {
+              console.error(`Failed to preload image: ${member.image}`, err);
+              return null;
+            });
+        });
+        
+        const results = await Promise.allSettled(imagePromises);
+        const successful = results.filter(r => r.status === 'fulfilled').length;
+        console.log(`Image preloading complete. Success: ${successful}/${teamMembers.length}`);
+        
       } catch (error) {
-        console.error('Error preloading images:', error);
+        console.error('Unexpected error during image preloading:', error);
       } finally {
         if (isMounted) {
           setImagesLoaded(true);
+          console.log('Image loading state set to loaded');
         }
       }
     };
@@ -84,6 +102,7 @@ const Team = () => {
     
     return () => {
       isMounted = false;
+      console.log('Cleanup: Component unmounted');
     };
   }, []);
 
@@ -450,13 +469,23 @@ const Team = () => {
                           <div className="relative overflow-hidden">
                             <div className="relative h-64 overflow-hidden">
                               <img
-                                  src={getImagePath(member.image)}
+                                  src={member.image.startsWith('http') ? member.image : getImagePath(member.image)}
                                   alt={member.name}
                                   loading="lazy"
+                                  data-original-src={member.image}
                                   className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 ${
                                     imagesLoaded ? 'opacity-100' : 'opacity-0'
                                   }`}
-                                  onError={handleImageError}
+                                  onError={(e) => {
+                                    console.error(`Image failed to load: ${member.image}`, e);
+                                    handleImageError(e);
+                                  }}
+                                  onLoad={(e) => {
+                                    console.log(`Image loaded successfully: ${member.image}`);
+                                    // Create a new image to preload for better caching
+                                    const img = new Image();
+                                    img.src = member.image.startsWith('http') ? member.image : getImagePath(member.image);
+                                  }}
                               />
                               {!imagesLoaded && (
                                 <div className="absolute inset-0 bg-gray-800 animate-pulse"></div>

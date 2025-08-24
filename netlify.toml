@@ -1,11 +1,14 @@
 [build]
-  command = "npm install && npm run build"
+  command = "npm run build"
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
-  NPM_VERSION = "10"
+  NODE_VERSION = "20.11.1"
+  NPM_VERSION = "10.2.4"
+  NETLIFY_IMAGE_CDN_DOMAIN = "imgix.net"
 
+# Redirect rules for SPA
+# Handle SPA routing
 [[redirects]]
   from = "/*"
   to = "/index.html"

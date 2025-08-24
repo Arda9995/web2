@@ -2,29 +2,8 @@
  * Utility functions for handling image paths in the application
  */
 
-// Define the base URL type for better type safety
-type BaseUrl = string;
-
-// Get the base URL based on the current environment
-const getBaseUrl = (): BaseUrl => {
-  // For Vite projects
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    return (import.meta.env.BASE_URL as string) || '';
-  }
-  
-  // For Create React App
-  if (typeof process !== 'undefined' && process.env && process.env.PUBLIC_URL) {
-    return process.env.PUBLIC_URL;
-  }
-  
-  // Default to empty string for development
-  return '';
-};
-
-const BASE_URL: BaseUrl = getBaseUrl();
-
 // Cache for tracking loaded images
-const imageCache = new Set<string>();
+const imageCache = new Map<string, Promise<boolean>>();
 
 // Type guard for HTMLImageElement
 const isHTMLImageElement = (element: EventTarget | null): element is HTMLImageElement => {
@@ -37,34 +16,70 @@ const isHTMLImageElement = (element: EventTarget | null): element is HTMLImageEl
  * @returns The correct image path
  */
 export const getImagePath = (imageName: string): string => {
-  // Return placeholder if no image name is provided
-  if (!imageName || typeof imageName !== 'string') {
-    return `${BASE_URL}/placeholder-avatar.png`;
-  }
-  
-  // Normalize the image path
-  const cleanName = imageName.startsWith('/') ? imageName.substring(1) : imageName;
-  const fullPath = `${BASE_URL}/${cleanName}`;
-  
-  // Add to cache and preload if not already cached
-  if (!imageCache.has(fullPath)) {
-    try {
-      imageCache.add(fullPath);
-      // Preload the image
-      const img = new Image();
-      img.src = fullPath;
-      
-      // Set up error handling for the preload
-      img.onerror = () => {
-        console.warn(`Failed to preload image: ${fullPath}`);
-      };
-    } catch (error) {
-      console.error('Error preloading image:', error);
+  try {
+    // Return placeholder if no image name is provided
+    if (!imageName || typeof imageName !== 'string') {
+      console.warn('No image name provided, using placeholder');
+      return '/placeholder-avatar.png';
     }
+    
+    // Handle external URLs
+    if (imageName.startsWith('http')) {
+      return imageName;
+    }
+    
+    // Normalize the path
+    const cleanName = imageName.startsWith('/') ? imageName.substring(1) : imageName;
+    const imagePath = `/${cleanName}`;
+    
+    // In production, we need to ensure the path is correct
+    // Netlify serves files in a case-insensitive way, but we'll try to match the exact case first
+    return imagePath;
+    
+  } catch (error) {
+    console.error('Error in getImagePath:', error);
+    return '/placeholder-avatar.png';
+  }
+};
+
+/**
+ * Preloads an image and caches the result
+ * @param src - The image source to preload
+ * @returns A promise that resolves when the image is loaded
+ */
+export const preloadImage = (src: string): Promise<boolean> => {
+  // Return cached promise if available
+  if (imageCache.has(src)) {
+    return imageCache.get(src)!;
   }
   
-  return fullPath;
+  const promise = new Promise<boolean>((resolve) => {
+    const img = new Image();
+    const imagePath = getImagePath(src);
+    
+    img.onload = () => {
+      console.log(`Successfully loaded image: ${src}`);
+      resolve(true);
+    };
+    
+    img.onerror = (error) => {
+      console.error(`Failed to load image: ${src}`, {
+        src,
+        resolvedPath: imagePath,
+        error
+      });
+      resolve(false);
+    };
+    
+    // Start loading
+    img.src = imagePath;
+  });
+  
+  // Cache the promise
+  imageCache.set(src, promise);
+  return promise;
 };
+
 
 /**
  * Handles image loading errors by setting a fallback image
@@ -77,16 +92,28 @@ export const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>): voi
   }
   
   const target = e.target as HTMLImageElement;
-  const placeholderPath = `${BASE_URL}/placeholder-avatar.png`;
+  const originalSrc = target.dataset.originalSrc || target.getAttribute('data-original-src') || target.src;
+  const placeholderPath = '/placeholder-avatar.png';
   
   // Only try to recover if we haven't already tried the fallback
   if (!target.src.endsWith(placeholderPath)) {
     try {
-      target.onerror = null; // Prevent infinite loop
-      target.src = placeholderPath;
-      target.classList.add('opacity-50');
+      console.warn(`Image failed to load: ${originalSrc}`, {
+        currentSrc: target.currentSrc,
+        src: target.src,
+        originalSrc
+      });
+      
+      // Prevent infinite loops
+      target.onerror = null;
+      
+      // Only set the placeholder if it's not already set
+      if (target.src !== placeholderPath) {
+        target.src = placeholderPath;
+        target.classList.add('opacity-50');
+      }
     } catch (error) {
-      console.error('Error setting fallback image:', error);
+      console.error('Error in handleImageError:', error);
     }
   }
 };
