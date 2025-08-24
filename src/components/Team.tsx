@@ -21,36 +21,43 @@ type TeamCategory = keyof typeof teamCategories;
 // Team categories with proper hierarchy
 const teamCategories = {
   "leadership": "Leadership",
-  "engineering": "Engineering Teams",
   "vehicle-dynamics": "Vehicle Dynamics",
   "electronics": "Electronics & Software",
   "aerodynamics": "Aerodynamics",
   "powertrain": "Powertrain",
   "chassis": "Chassis & Ergonomics",
-  "business": "Business & Organization",
-  "support": "Support Team"
+  "business": "Business & Marketing",
+  "organization": "Organization"
 } as const;
+
+// Helper function to create image path
+const getImagePath = (filename: string): string => {
+  // For Netlify, ensure the path is relative to the public directory
+  if (filename.startsWith('http')) return filename;
+  return `./photos/${filename}`;
+};
 
 // Team member data
 const teamMembers: TeamMember[] = [
+  // Leadership
   {
     name: "Hüseyin Poyraz Kocamış",
     role: "Team Captain",
     department: "Civil Engineering",
-    image: "/POYRAZ.png",
+    image: getImagePath("POYRAZ.png"),
     social: {
-      linkedin: "https://www.linkedin.com/in/poyrazkocamis?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-      email: "poyraz@iztechracing.com",
+      linkedin: "https://www.linkedin.com/in/poyrazkocamis",
+      email: "poyraz@iztechracing.com"
     }
   },
   {
     name: "Serkan Doğan Evin",
     role: "Electronics & Software Team Leader",
     department: "Mechanical Engineering",
-    image: "/SERKAN.png",
+    image: getImagePath("SERKAN.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/serkan-do%C4%9Fan-evin-7569a61b8/",
-      email: "@iztechracing.com",
+      email: "serkandoganevin@iztechracing.com",
       instagram: "#"
     }
   },
@@ -58,54 +65,152 @@ const teamMembers: TeamMember[] = [
     name: "Emre Canbaz",
     role: "Vehicle Dynamics Team Leader",
     department: "Mechanical Engineering",
-    image: "/EMRE.png",
+    image: getImagePath("EMRE.png"),
     social: {
-      linkedin: "https://www.linkedin.com/in/emre-canbaz-30b087335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-      email: "@iztechracing.com",
-      github: "#"
+      linkedin: "https://www.linkedin.com/in/emre-canbaz-30b087335",
+      email: "emre@iztechracing.com"
     }
   },
   {
     name: "Onur Şen",
     role: "Powertrain Team Leader",
     department: "Mechanical Engineering",
-    image: "/ONUR.png",
+    image: getImagePath("ONUR.png"),
     social: {
-      linkedin: "https://www.linkedin.com/in/onur-%C5%9Fen-b87b50239?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-      email: "@iztechracing.com",
-      github: "#"
+      linkedin: "https://www.linkedin.com/in/onur-sen-b87b50239",
+      email: "onur@iztechracing.com"
     }
   },
   {
     name: "Efe Yıldırım",
     role: "Aerodynamics Team Leader",
     department: "Mechanical Engineering",
-    image: "/EFEYİLDİRİR.png",
+    image: getImagePath("EFEYILDIRIR.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/efeyldrm/",
-      email: "@iztechracing.com",
-      github: "#"
+      email: "efe@iztechracing.com"
     }
   },
   {
     name: "Ödül Yarkın Baran",
     role: "Organization Team Leader",
+    department: "Industrial Engineering",
+    image: getImagePath("ODUL.png"),
+    social: {
+      linkedin: "#",
+      email: "odul@iztechracing.com"
+    },
+  },
+  {
+    name: "Kuzey Demirer",
+    role: "Business Development Team Leader",
+    department: "Industrial Design",
+    image: getImagePath("KUZEY.png"),
+    social: {
+      linkedin: "#",
+      email: "kuzey@iztechracing.com"
+    },
+  },
+  
+  // Vehicle Dynamics Team
+  {
+    name: "Arda Akpolat",
+    role: "Vehicle Dynamics Team Member",
+    department: "Mechanical Engineering",
+    image: getImagePath("ARDAKAPOLAT.png"),
+    social: {
+      linkedin: "#",
+      email: "arda.akpolat@iztechracing.com"
+    }
+  },
+  {
+    name: "Arda Onuk",
+    role: "Vehicle Dynamics Team Member",
+    department: "Mechanical Engineering",
+    image: getImagePath("ARDAONUK.png"),
+    social: {
+      linkedin: "#",
+      email: "arda.onuk@iztechracing.com"
+    }
+  },
+  
+  // Electronics & Software Team
+  {
+    name: "Arda Keşkin",
+    role: "Electronics & Software Team Member",
+    department: "Computer Engineering",
+    image: getImagePath("ARDAKESKIN.png"),
+    social: {
+      linkedin: "#",
+      email: "arda.keskin@iztechracing.com"
+    }
+  },
+  
+  // Aerodynamics Team
+  {
+    name: "Alp Altan Sönmez",
+    role: "Aerodynamics Team Member",
+    department: "Mechanical Engineering",
+    image: getImagePath("ALPALTAN.png"),
+    social: {
+      linkedin: "#",
+      email: "alp@iztechracing.com"
+    }
+  },
+  
+  // Powertrain Team
+  {
+    name: "Tarık Alperen Öcal",
+    role: "Powertrain Team Member",
+    department: "Mechanical Engineering",
+    image: getImagePath("TARIKALPERENOCAL.png"),
+    social: {
+      linkedin: "#",
+      email: "tarik@iztechracing.com"
+    }
+  },
+  
+  // Business & Marketing
+  {
+    name: "Ayşe Nur Çelik",
+    role: "Business Development",
+    department: "Business Administration",
+    image: getImagePath("AYSE.png"),
+    social: {
+      linkedin: "#",
+      email: "ayse@iztechracing.com"
+    }
+  },
+  
+  // Support Team
+  {
+    name: "Mehmet Ali Öztürk",
+    role: "Technical Support",
+    department: "Mechanical Engineering",
+    image: getImagePath("MEHMETALI.png"),
+    social: {
+      linkedin: "#",
+      email: "mehmet@iztechracing.com"
+    }
+  },
+  {
+    name: "Ödül Yarkın Baran",
+    role: "Photonics Specialist",
     department: "Photonics Department",
-    image: "/ÖdülYarkınBaran.png",
+    image: getImagePath("ODUL.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/odulyarkinbaran/",
-      email: "@iztechracing.com",
-      github: "#"
+      email: "odul@iztechracing.com"
     }
   },
   {
     name: "Ahmet Duha Aydın",
     role: "Chassis & Ergonomics Team Leader",
     department: "Mechanical Engineering",
-    image: "/DUHA.png",
+    image: getImagePath("DUHA.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/ahmet-duha-aydin-b81b98244",
-      email: "@iztechracing.com",
+      email: "duha@iztechracing.com"
       github: "#"
     }
   },
@@ -124,7 +229,7 @@ const teamMembers: TeamMember[] = [
     name: "Arda Onuk",
     role: "Electronics & Software Team Member",
     department: "Mathematics Department",
-    image: "/ARDAONUK.png",
+    image: getImagePath("ARDAONUK.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/arda-onuk-8247b5352/",
       email: "ardaonuk9995@gmail.com",
@@ -267,7 +372,7 @@ const teamMembers: TeamMember[] = [
     name: "Kerem Katrancı",
     role: "Powertrain Team Member",
     department: "Mechanical Engineering",
-    image: "/KEREM.png",
+    image: getImagePath("KEREM.png"),
     social: {
       linkedin: "https://www.linkedin.com/in/kerem-katranc%C4%B1-33294a247?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       email: "@iztechracing.com",
@@ -352,61 +457,122 @@ const categorizeTeamMembers = (members: TeamMember[]): Record<string, TeamMember
     categories[category] = [];
   });
 
-  // Map roles to categories
+  // Map roles to categories with more specific matching
   const roleToCategory: Record<string, string> = {
+    // Leadership
     'captain': teamCategories.leadership,
     'team lead': teamCategories.leadership,
-    'electronics': teamCategories.electronics,
+    'leader': teamCategories.leadership,
+    
+    // Electronics & Software
+    'electronic': teamCategories.electronics,
     'software': teamCategories.electronics,
+    'computer': teamCategories.electronics,
+    
+    // Vehicle Dynamics
     'vehicle': teamCategories['vehicle-dynamics'],
     'dynamics': teamCategories['vehicle-dynamics'],
+    'suspension': teamCategories['vehicle-dynamics'],
+    
+    // Aerodynamics
     'aero': teamCategories.aerodynamics,
+    'aerodynamics': teamCategories.aerodynamics,
+    
+    // Powertrain
     'powertrain': teamCategories.powertrain,
+    'engine': teamCategories.powertrain,
+    'transmission': teamCategories.powertrain,
+    
+    // Chassis & Ergonomics
     'chassis': teamCategories.chassis,
+    'ergonomic': teamCategories.chassis,
     'ergonomics': teamCategories.chassis,
+    'composite': teamCategories.chassis,
+    
+    // Business & Marketing
     'business': teamCategories.business,
+    'marketing': teamCategories.business,
     'sponsor': teamCategories.business,
-    'organization': teamCategories.business,
-    'support': teamCategories.support
+    
+    // Organization
+    'organization': teamCategories.organization,
+    'logistics': teamCategories.organization,
+    'support': teamCategories.organization
   };
 
   members.forEach(member => {
     const role = member.role.toLowerCase();
-    let category = teamCategories.business; // Default category
+    let category = '';
     
-    // Find the most specific category match
+    // First check for exact matches in role
     for (const [key, value] of Object.entries(roleToCategory)) {
-      if (role.includes(key)) {
+      if (new RegExp(`\\b${key}\\b`, 'i').test(role)) {
         category = value;
         break;
       }
     }
     
-    // Special case for leadership roles
-    if (member.role.toLowerCase().includes('captain') || 
-        member.role.toLowerCase().includes('leader') || 
-        member.role.toLowerCase().includes('head')) {
-      category = teamCategories.leadership;
+    // If no exact match found, try partial match
+    if (!category) {
+      for (const [key, value] of Object.entries(roleToCategory)) {
+        if (role.includes(key)) {
+          category = value;
+          break;
+        }
+      }
+    }
+    
+    // Default to organization if still no category found
+    if (!category) {
+      category = teamCategories.organization;
     }
     
     if (!categories[category]) {
       categories[category] = [];
     }
     
-    // Sort team members by role (leaders first, then alphabetically by name)
-    const insertIndex = categories[category].findIndex(m => 
-      !m.role.toLowerCase().includes('leader') && 
-      !m.role.toLowerCase().includes('captain') && 
-      !m.role.toLowerCase().includes('head')
-    );
+    // Find the right position to insert (leaders first, then alphabetically by name)
+    const isLeader = role.includes('leader') || role.includes('captain') || role.includes('head');
     
-    if (insertIndex === -1) {
-      categories[category].push(member);
+    if (isLeader) {
+      // Insert leaders at the beginning
+      categories[category].unshift(member);
     } else {
-      categories[category].splice(insertIndex, 0, member);
+      // For non-leaders, find the right alphabetical position
+      const insertIndex = categories[category].findIndex(m => 
+        !m.role.toLowerCase().includes('leader') && 
+        !m.role.toLowerCase().includes('captain') && 
+        !m.role.toLowerCase().includes('head') &&
+        m.name.localeCompare(member.name) > 0
+      );
+      
+      if (insertIndex === -1) {
+        categories[category].push(member);
+      } else {
+        categories[category].splice(insertIndex, 0, member);
+      }
     }
   });
   
+  // Ensure each category is properly sorted
+  Object.keys(categories).forEach(key => {
+    categories[key].sort((a, b) => {
+      const aIsLeader = a.role.toLowerCase().includes('lead') || 
+                       a.role.toLowerCase().includes('captain') ||
+                       a.role.toLowerCase().includes('head');
+      const bIsLeader = b.role.toLowerCase().includes('lead') || 
+                       b.role.toLowerCase().includes('captain') ||
+                       b.role.toLowerCase().includes('head');
+      
+      // Leaders come first
+      if (aIsLeader && !bIsLeader) return -1;
+      if (!aIsLeader && bIsLeader) return 1;
+      
+      // If both are leaders or both are not, sort by name
+      return a.name.localeCompare(b.name);
+    });
+  });
+
   // Remove empty categories
   Object.keys(categories).forEach(key => {
     if (categories[key].length === 0) {
@@ -421,7 +587,7 @@ const categorizeTeamMembers = (members: TeamMember[]): Record<string, TeamMember
 const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
-    target.src = '/placeholder-avatar.png';
+    target.src = './placeholder-avatar.png';
   };
 
   return (
