@@ -1,10 +1,19 @@
 import type { SyntheticEvent } from 'react';
 
 /**
- * Simple and reliable image handling utilities
+ * Image handling utilities with Netlify deployment support
  */
 
-// Simple image path resolver
+// Base URL for images (handles both development and production)
+const getBaseUrl = (): string => {
+  // For production builds, use relative paths
+  if (process.env.NODE_ENV === 'production') return '';
+  // For development, use the current origin
+  if (typeof window !== 'undefined') return window.location.origin;
+  return ''; // For SSR
+};
+
+// Image path resolver
 export const getImagePath = (imageName: string): string => {
   if (!imageName) return '/placeholder-avatar.png';
   
@@ -13,35 +22,34 @@ export const getImagePath = (imageName: string): string => {
     return imageName;
   }
   
-  // Remove leading slash if present
-  const cleanName = imageName.startsWith('/') ? imageName.substring(1) : imageName;
+  // Ensure the path starts with a slash for relative paths
+  const cleanName = imageName.startsWith('/') ? imageName : `/${imageName}`;
   
-  // For production (Netlify), use the path directly from public folder
-  if (process.env.NODE_ENV === 'production') {
-    return `/${cleanName}`;
-  }
-  
-  // For development, use the path relative to public folder
-  return `/${cleanName}`;
+  // For production, use relative paths, for development use absolute
+  return process.env.NODE_ENV === 'production' 
+    ? cleanName 
+    : `${getBaseUrl()}${cleanName}`;
 };
 
-// Simple error handler
+// Error handler for images
 export const handleImageError = (e: SyntheticEvent<HTMLImageElement>): void => {
   const target = e.target as HTMLImageElement;
   
   // Only set fallback if not already set
   if (!target.src.endsWith('/placeholder-avatar.png')) {
-    target.src = '/placeholder-avatar.png';
+    target.src = process.env.NODE_ENV === 'production' 
+      ? '/placeholder-avatar.png' 
+      : `${getBaseUrl()}/placeholder-avatar.png`;
     target.classList.add('opacity-50');
   }
 };
 
-// Simple preload function
-export const preloadImage = (src: string): Promise<boolean> => {
-  return new Promise((resolve) => {
+// Preload images with error handling
+export const preloadImage = (src: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
     const img = new Image();
-    img.onload = () => resolve(true);
-    img.onerror = () => resolve(false);
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
     img.src = getImagePath(src);
   });
 };

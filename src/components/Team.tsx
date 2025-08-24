@@ -416,8 +416,11 @@ const Team = () => {
     }
   ];
 
-  const categorizeTeamMembers = (members) => {
-    const categories = {};
+  const categorizeTeamMembers = (members: TeamMember[]) => {
+    interface CategoriesType {
+      [key: string]: TeamMember[];
+    }
+    const categories: CategoriesType = {};
     members.forEach(member => {
       // Use the role as-is if it's already a key, otherwise use the first word
       const roleKey = member.role.includes('_') ?
@@ -480,7 +483,7 @@ const Team = () => {
                                     console.error(`Image failed to load: ${member.image}`, e);
                                     handleImageError(e);
                                   }}
-                                  onLoad={(e) => {
+                                  onLoad={() => {
                                     console.log(`Image loaded successfully: ${member.image}`);
                                     // Create a new image to preload for better caching
                                     const img = new Image();
