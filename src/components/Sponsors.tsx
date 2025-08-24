@@ -28,8 +28,7 @@ const Sponsors = () => {
       description: t('sponsors.tiers.silver.description', "Valued partners in our journey"),
       sponsors: [
         { name: "Avioni Technologies", logo: "/5958e813d0893.png", url: "https://www.avionitech.com/tr/" },
-        { name: "IZELTAŞ", logo: "/images.png", url: "https://izeltas.com.tr/" },
-        { name: "Gamma Technologies", logo: "/GT", url: "https://www.gtisoft.com/" }
+        { name: "IZELTAŞ", logo: "/images.png", url: "https://izeltas.com.tr/" }
       ]
     },
     {
@@ -47,7 +46,7 @@ const Sponsors = () => {
         { name: "Urla Solar", logo: "/UrlaSolar_Tam_Logo.png", url: "https://urlasolar.com/" },
         { name: "Bilişim Vadisi", logo: "/BV_Logo_H.png", url: "https://bilisimvadisi.com.tr/" },
         { name: "Teknopark İzmir", logo: "/20190828083905.png", url: "https://teknoparkizmir.com.tr/" },
-        { name: "URİKAD", logo: "/URİKADW.png", url: "#" }
+        { name: "URİKAD", logo: "/UR�KADW.png", url: "#" }
       ]
     }
   ];
