@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { getImagePath, handleImageError } from '../utils/imageUtils';
 
-// Function to preload images
-const preloadImage = (src: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = getImagePath(src);
-    img.onload = () => resolve(img);
-    img.onerror = (err) => reject(err);
-  });
-};
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any;
+    }
+  }
+}
 
-// Define the team member type
+// Define team member type
 interface TeamMember {
   name: string;
   role: string;
@@ -27,7 +25,7 @@ interface TeamMember {
   };
 }
 
-
+// Team categories
 const teamCategories = {
   "Team Captain": "Team Captain",
   "Electronics & Software": "Electronics & Software Team",
@@ -39,30 +37,64 @@ const teamCategories = {
   "Business Development": "Business Development",
 };
 
-interface CategorizedTeamMembers {
-  [category: string]: TeamMember[];
-}
-
-const categorizeTeamMembers = (members: TeamMember[]): CategorizedTeamMembers => {
-  const categorized: CategorizedTeamMembers = {};
-
-  members.forEach((member: TeamMember) => {
-    const categoryKey = Object.keys(teamCategories).find((key) =>
-        member.role.includes(key)
-    );
-    const category = teamCategories[categoryKey as keyof typeof teamCategories] || "Others";
-    if (!categorized[category]) {
-      categorized[category] = [];
-    }
-    categorized[category].push(member);
+// Function to preload images
+const preloadImage = (src: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = getImagePath(src);
+    img.onload = () => resolve(img);
+    img.onerror = (error) => {
+      console.error('Failed to preload image:', src, error);
+      reject(error);
+    };
   });
-
-  return categorized;
 };
 
-const Team = () => {
+// Categorize team members by their role
+const categorizeTeamMembers = (members: TeamMember[]): Record<string, TeamMember[]> => {
+  const categories: Record<string, TeamMember[]> = {};
+  
+  members.forEach((member: TeamMember) => {
+    const category = Object.keys(teamCategories).find(key => 
+      member.role.includes(key)
+    ) || 'Other';
+    
+    if (!categories[category]) {
+      categories[category] = [];
+    }
+    categories[category].push(member);
+  });
+  
+  return categories;
+};
+
+const Team: React.FC = () => {
   const { t } = useTranslation();
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean>(false);
+  const [categorizedMembers, setCategorizedMembers] = useState<Record<string, TeamMember[]>>({});
+  
+  // Sample team data - replace with your actual data
+  const teamMembers: TeamMember[] = [
+    // Add your team members here
+    // Example:
+    // {
+    //   name: 'John Doe',
+    //   role: 'Team Captain',
+    //   department: 'Engineering',
+    //   image: '/path/to/image.jpg',
+    //   social: {
+    //     linkedin: 'https://linkedin.com',
+    //     email: 'john@example.com',
+    //     github: 'https://github.com'
+    //   }
+    // }
+  ];
+
+  // Categorize team members on component mount
+  useEffect(() => {
+    const categorized = categorizeTeamMembers(teamMembers);
+    setCategorizedMembers(categorized);
+  }, []);
 
   // Preload all team member images when component mounts
   useEffect(() => {
@@ -476,15 +508,10 @@ const Team = () => {
                                   className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 ${
                                     imagesLoaded ? 'opacity-100' : 'opacity-0'
                                   }`}
-                                  onError={(e) => {
-                                    console.error(`Image failed to load: ${member.image}`, e);
-                                    handleImageError(e);
-                                  }}
-                                  onLoad={(e) => {
-                                    console.log(`Image loaded successfully: ${member.image}`);
-                                    // Create a new image to preload for better caching
-                                    const img = new Image();
-                                    img.src = member.image.startsWith('http') ? member.image : getImagePath(member.image);
+                                  onError={handleImageError}
+                                  onLoad={() => {
+                                    // Optional: Log successful image load
+                                    console.log(`Image loaded: ${member.image}`);
                                   }}
                               />
                               {!imagesLoaded && (
