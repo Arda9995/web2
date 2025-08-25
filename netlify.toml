@@ -4,10 +4,8 @@
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "20.11.1"
-  NPM_VERSION = "10.2.4"
-  NETLIFY_IMAGE_CDN_DOMAIN = "imgix.net"
-  NODE_OPTIONS = "--openssl-legacy-provider"
+  NODE_VERSION = "18.20.2"  # LTS version
+  NPM_VERSION = "9.8.1"     # Bundled with Node 18.20.2
   VITE_APP_ENV = "production"
 
 # Redirect rules for SPA

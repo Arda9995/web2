@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
 import { Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { getImagePath, handleImageError } from '../utils/imageUtils';
 
-// Function to preload images
-const preloadImage = (src: string): Promise<HTMLImageElement> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = getImagePath(src);
-    img.onload = () => resolve(img);
-    img.onerror = (err) => reject(err);
-  });
+// Simple image error handler
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const target = e.target as HTMLImageElement;
+  target.src = '/placeholder-avatar.png';
+  target.classList.add('opacity-50');
 };
 
 // Define the team member type
@@ -62,49 +57,7 @@ const categorizeTeamMembers = (members: TeamMember[]): CategorizedTeamMembers =>
 
 const Team = () => {
   const { t } = useTranslation();
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-
-  // Preload all team member images when component mounts
-  useEffect(() => {
-    let isMounted = true;
-
-    const preloadImages = async () => {
-      console.log('Starting to preload team member images...');
-      try {
-        const imagePromises = teamMembers.map((member, index) => {
-          console.log(`Preloading image ${index + 1}/${teamMembers.length}: ${member.image}`);
-          return preloadImage(member.image)
-              .then(img => {
-                console.log(`Successfully preloaded: ${member.image}`);
-                return img;
-              })
-              .catch(err => {
-                console.error(`Failed to preload image: ${member.image}`, err);
-                return null;
-              });
-        });
-
-        const results = await Promise.allSettled(imagePromises);
-        const successful = results.filter(r => r.status === 'fulfilled').length;
-        console.log(`Image preloading complete. Success: ${successful}/${teamMembers.length}`);
-
-      } catch (error) {
-        console.error('Unexpected error during image preloading:', error);
-      } finally {
-        if (isMounted) {
-          setImagesLoaded(true);
-          console.log('Image loading state set to loaded');
-        }
-      }
-    };
-
-    preloadImages();
-
-    return () => {
-      isMounted = false;
-      console.log('Cleanup: Component unmounted');
-    };
-  }, []);
+  // Remove image preloading state since we're using direct paths
 
   const teamMembers: TeamMember[] = [
     {
@@ -472,27 +425,12 @@ const Team = () => {
                           <div className="relative overflow-hidden">
                             <div className="relative h-64 overflow-hidden">
                               <img
-                                  src={member.image.startsWith('http') ? member.image : getImagePath(member.image)}
+                                  src={member.image.startsWith('http') ? member.image : member.image}
                                   alt={member.name}
                                   loading="lazy"
-                                  data-original-src={member.image}
-                                  className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 ${
-                                      imagesLoaded ? 'opacity-100' : 'opacity-0'
-                                  }`}
-                                  onError={(e) => {
-                                    console.error(`Image failed to load: ${member.image}`, e);
-                                    handleImageError(e);
-                                  }}
-                                  onLoad={() => {
-                                    console.log(`Image loaded successfully: ${member.image}`);
-                                    // Create a new image to preload for better caching
-                                    const img = new Image();
-                                    img.src = member.image.startsWith('http') ? member.image : getImagePath(member.image);
-                                  }}
+                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 opacity-100"
+                                  onError={handleImageError}
                               />
-                              {!imagesLoaded && (
-                                  <div className="absolute inset-0 bg-gray-800 animate-pulse"></div>
-                              )}
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                           </div>
