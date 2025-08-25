@@ -1,12 +1,7 @@
 import { Linkedin, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { PlaceholderImage } from './PlaceholderImage';
 
-// Simple image error handler
-const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-  const target = e.target as HTMLImageElement;
-  target.src = '/placeholder-avatar.png';
-  target.classList.add('opacity-50');
-};
 
 // Define the team member type
 interface TeamMember {
@@ -424,12 +419,12 @@ const Team = () => {
                           {/* Görsel */}
                           <div className="relative overflow-hidden">
                             <div className="relative h-64 overflow-hidden">
-                              <img
+                              <PlaceholderImage
                                   src={member.image.startsWith('http') ? member.image : member.image}
                                   alt={member.name}
-                                  loading="lazy"
                                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 opacity-100"
-                                  onError={handleImageError}
+                                  width={250}
+                                  height={256}
                               />
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>

@@ -3,22 +3,28 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
-  base: './', // Use relative paths for assets
+  base: mode === 'production' ? '/' : '/',
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
   build: {
     outDir: 'build',
     emptyOutDir: true,
-    assetsInlineLimit: 4096, // 4kb
+    assetsDir: 'assets',
+    sourcemap: mode !== 'production',
+    minify: 'terser',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
           vendor: ['lucide-react'],
         },
+        assetFileNames: 'assets/[name].[hash][extname]',
+        chunkFileNames: 'assets/[name].[hash].js',
+        entryFileNames: 'assets/[name].[hash].js',
       },
     },
   },
@@ -29,8 +35,10 @@ export default defineConfig({
   },
   server: {
     open: true,
+    port: 3000,
   },
   preview: {
     port: 4173,
+    strictPort: true,
   },
-});
+}));
