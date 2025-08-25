@@ -46,7 +46,7 @@ const Sponsors = () => {
         { name: "Urla Solar", logo: "/UrlaSolar_Tam_Logo.png", url: "https://urlasolar.com/" },
         { name: "Bilişim Vadisi", logo: "/BV_Logo_H.png", url: "https://bilisimvadisi.com.tr/" },
         { name: "Teknopark İzmir", logo: "/20190828083905.png", url: "https://teknoparkizmir.com.tr/" },
-        { name: "URİKAD", logo: "/UR�KADW.png", url: "#" }
+        { name: "URİKAD", logo: "/URiKADW.png", url: "#" }
       ]
     }
   ];
